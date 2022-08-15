@@ -15,6 +15,7 @@ find_files <- function(file_list=list_files(), dirs=".", file_pattern=".*") {
   file_list |>
     split_file_path() |>
     dplyr::filter(purrr::map_lgl(dir, ~any(stringr::str_detect(.x, dirs)))) |>
-    dplyr::filter(purrr::map_lgl(file, ~any(stringr::str_detect(.x, file_pattern))))
+    dplyr::filter(purrr::map_lgl(file, ~any(stringr::str_detect(.x, file_pattern)))) |>
+    dplyr::select(-.data$dirs, -.data$file_pattern)
 
 }
