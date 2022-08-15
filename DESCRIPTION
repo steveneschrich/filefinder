@@ -1,0 +1,21 @@
+Package: filefinder
+Title: Find Files from List using Patterns
+Version: 0.0.0.9000
+Authors@R: 
+    person("Steven", "Eschrich", , "Steven.Eschrich@moffitt.org", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Given a list of files in multiple directories, this package allows you to
+  identify specific files by regex. The package also supports parsing specific parts of
+  the filename into discrete fields. The filefinder package was built to support a very
+  specific use case of extracting a group of files with similar (not identical) filenames
+  from a very large index of files. The value beyond this use case is not apparent yet.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: 
+    dplyr,
+    fs,
+    purrr,
+    rlang,
+    stringr
