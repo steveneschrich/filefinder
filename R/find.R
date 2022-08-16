@@ -1,25 +1,22 @@
-#' Find identifiers from a list of files using patterns
+#' Find files from a list of files using filters
 #'
-#' @param file
-#' @param file_pattern
+#' @param file_list A list of files from [fs::dir_info()].
+#' @param dirs A list of directories to filter on (can be absolute, use regex)
+#' @param file_pattern A list of patterns to match for files
 #'
-#' @return
+#' @return A `file_list` filtered to the files matching the criteria.
 #' @export
 #'
 #' @examples
-find_identifiers <- function(file, file_pattern) {
-  purrr::map(file_pattern, ~find_identifier(file, .x))
+#' if (FALSE) {
+#'   find_files(file_list=list_files("."), dirs = ".", file_pattern=".*")
+#' }
+find_files <- function(file_list=list_files(), dirs=".", file_pattern=".*") {
+  file_list |>
+    split_file_path() |>
+    dplyr::filter(purrr::map_lgl(dir, ~any(stringr::str_detect(.x, dirs)))) |>
+    dplyr::filter(purrr::map_lgl(file, ~any(stringr::str_detect(.x, file_pattern)))) |>
+    dplyr::select(-.data$dir, -.data$file)
+
 }
 
-#' Find identifier from a list of files using a single pattern
-#'
-#' @param file
-#' @param file_pattern
-#'
-#' @return
-#' @export
-#'
-#' @examples
-find_identifier <- function(file, file_pattern) {
-  stringr::str_match(file, file_pattern)[,2]
-}
